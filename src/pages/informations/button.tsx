@@ -38,7 +38,7 @@ const Button = () => {
 
 
     return (
-        <div className="button">
+        <div className="button-group">
             <button onClick={() => setCount(count + 1)}>
             {/* <button onClick={() => addCount()}> */}
                 Click me (count)
