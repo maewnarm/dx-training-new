@@ -227,7 +227,7 @@ const About = () => {
 
             <Selected selectedValue={`Plant : ${selectedPlant}, Line : ${selectedLine}, Machine : ${selectedMachine}`} />
             {/* plant dropdown */}
-            <Dropdown itemArray={plantsArray} setSelectFunction={setSelectedPlant} type={"plant"}/>
+            <Dropdown itemArray={plantsArray} setSelectFunction={setSelectedPlant}/>
             {/* line dropdown */}
             <Dropdown itemArray={filteredLine} setSelectFunction={setSelectedLine}/>
             {/* machine dropdown */}
