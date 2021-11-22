@@ -79,36 +79,10 @@ const About = () => {
     const [selectedMachine, setSelectedMachine] = useState("")
     const [filteredLine, setFilteredLine] = useState<string[]>([])
     const [filteredMachine, setFilteredMachine] = useState<string[]>([])
-    const [onMenu, setOnMenu] = useState(false)
 
-    function toggleDropdown(e: React.MouseEvent) {
-        e.currentTarget.classList.toggle("is-active")
-    }
-
-    function toggleDropdownItem(e: React.MouseEvent, type: string, index: number) {
-        const items = document.querySelectorAll(`.dropdown-item.dropdown__${type}`)
-        items.forEach((item, idx) => {
-            item.classList.toggle("is-active", false)
-        })
-        e.currentTarget.classList.toggle("is-active", true)
-        switch (type) {
-            case "plant":
-                setSelectedPlant(e.currentTarget.innerHTML)
-                break
-            case "line":
-                setSelectedLine(e.currentTarget.innerHTML)
-                break
-            case "machine":
-                setSelectedMachine(e.currentTarget.innerHTML)
-                break
-            default:
-                console.log("type not match")
-        }
-    }
-
-    function clearSelected(types: string[]) {
-        types.forEach((type, index) => {
-            let items = document.querySelectorAll(`.dropdown-item.dropdown__${type}`)
+    function clearSelected(identifiers: string[]) {
+        identifiers.forEach((identifier, index) => {
+            let items = document.querySelectorAll(`.dropdown-item.${identifier}`)
             items.forEach((item, idx) => {
                 item.classList.toggle("is-active", false)
             })
@@ -117,9 +91,9 @@ const About = () => {
 
     useEffect(() => {
         console.log("plant is changed")
-        // setSelectedLine("")
-        // setSelectedMachine("")
-        // clearSelected(["line", "machine"])
+        setSelectedLine("")
+        setSelectedMachine("")
+        clearSelected(["line", "machine"])
         let filtered: string[] = []
         linesArray.forEach(item => {
             if (item.plant === selectedPlant) {
@@ -131,8 +105,8 @@ const About = () => {
 
     useEffect(() => {
         console.log("line is changed")
-        // setSelectedMachine("")
-        // clearSelected(["machine"])
+        setSelectedMachine("")
+        clearSelected(["machine"])
         let filtered: string[] =[]
         machineArray.forEach(item => {
             if (item.line === selectedLine) {
@@ -148,96 +122,13 @@ const About = () => {
             <p>Plant : {selectedPlant}</p>
             <p>Line : {selectedLine}</p>
             <p>Machine : {selectedMachine}</p>
-            <button className="button is-dark">Test</button>
-
-            {/* plant */}
-            <div className="dropdown" onClick={(e) => toggleDropdown(e)} onBlur={(e) => !onMenu && e.currentTarget.classList.toggle("is-active",false)}>
-                <div className="dropdown-trigger" >
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown plant</span>
-                        <span className="icon is-small">
-                            <i className="fas fa-angle-double-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu" onMouseEnter={() => setOnMenu(true)} onMouseLeave={() => setOnMenu(false)}>
-                    <div className="dropdown-content">
-                        {plantsArray.map((item, idx) => {
-                            return (
-                                <a key={idx} className={`dropdown-item dropdown__plant item-${idx + 1}`} onClick={(e) => toggleDropdownItem(e, "plant", idx + 1)}>
-                                    {item}
-                                </a>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-
-            {/* line */}
-            <div className="dropdown" onClick={(e) => toggleDropdown(e)} onBlur={(e) => !onMenu && e.currentTarget.classList.toggle("is-active",false)}>
-                <div className="dropdown-trigger">
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown line</span>
-                        <span className="icon is-small">
-                            <i className="fas fa-angle-double-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu" onMouseEnter={() => setOnMenu(true)} onMouseLeave={() => setOnMenu(false)}>
-                    <div className="dropdown-content">
-                        {linesArray.map((item, idx) => {
-                            if (item.plant !== selectedPlant) {
-                                return
-                            }
-                            return (
-                                <a key={idx} className={`dropdown-item dropdown__line item-${idx + 1}`} onClick={(e) => toggleDropdownItem(e, "line", idx + 1)}>
-                                    {item.line}
-                                </a>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-
-            {/* machine */}
-            <div className="dropdown" onClick={(e) => toggleDropdown(e)} onBlur={(e) => !onMenu && e.currentTarget.classList.toggle("is-active",false)}>
-                <div className="dropdown-trigger">
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown machine</span>
-                        <span className="icon is-small">
-                            <i className="fas fa-angle-double-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div className="dropdown-menu" id="dropdown-menu" role="menu" onMouseEnter={() => setOnMenu(true)} onMouseLeave={() => setOnMenu(false)}>
-                    <div className="dropdown-content">
-                        {machineArray.map((item, idx) => {
-                            if (item.line !== selectedLine) {
-                                return
-                            }
-                            return (
-                                <a key={idx} className={`dropdown-item dropdown__machine item-${idx + 1}`} onClick={(e) => toggleDropdownItem(e, "machine", idx + 1)}>
-                                    {item.machine}
-                                </a>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-
             <Selected selectedValue={`Plant : ${selectedPlant}, Line : ${selectedLine}, Machine : ${selectedMachine}`} />
             {/* plant dropdown */}
-            <Dropdown itemArray={plantsArray} setSelectFunction={setSelectedPlant}/>
+            <Dropdown buttonText="choose plant" identifier="plant" itemArray={plantsArray} selectValue={selectedPlant} setSelectFunction={setSelectedPlant}/>
             {/* line dropdown */}
-            <Dropdown itemArray={filteredLine} setSelectFunction={setSelectedLine}/>
+            <Dropdown buttonText="choose line" identifier="line" itemArray={filteredLine} selectValue={selectedLine} setSelectFunction={setSelectedLine}/>
             {/* machine dropdown */}
-            <Dropdown itemArray={filteredMachine} setSelectFunction={setSelectedMachine}/>
-
-
-
-
-
-            {/* <Dropdown initialText="Choose plant" selectedText={selectedPlant} setSelectedText={setSelectedPlant} selectedItemIndex={selectedPlantIndex} setSelectedItemIndex={setSelectedPlantIndex} choicesArray={plantsArray}/> */}
+            <Dropdown buttonText="choose machine" identifier="machine" itemArray={filteredMachine} selectValue={selectedMachine} setSelectFunction={setSelectedMachine}/>
         </div>
     )
 }
