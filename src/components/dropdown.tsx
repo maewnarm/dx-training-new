@@ -15,12 +15,15 @@ const Dropdown: FC<DropdownProps> = (props) => {
         e.currentTarget.classList.toggle("is-active")
     }
 
-    function toggleDropdownItem(e: React.MouseEvent, index: number,identifier: string) {
+    function toggleDropdownItem(e: React.MouseEvent, index: number, identifier: string) {
         const items = document.querySelectorAll(`.dropdown-item.${identifier}`)
         items.forEach((item, idx) => {
             item.classList.toggle("is-active", false)
         })
         e.currentTarget.classList.toggle("is-active", true)
+        const button = document.querySelector(`.button.${identifier}`)
+        button?.classList.toggle("is-info", true)
+        button?.classList.toggle("is-danger", false)
         props.setSelectFunction(e.currentTarget.innerHTML)
     }
 
@@ -28,7 +31,7 @@ const Dropdown: FC<DropdownProps> = (props) => {
         <div className="component-dropdown">
             <div className="dropdown" onClick={(e) => toggleDropdown(e)} onBlur={(e) => !onMenu && e.currentTarget.classList.toggle("is-active", false)}>
                 <div className="dropdown-trigger">
-                    <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <button className={`button ${props.identifier} is-danger is-outlined`} aria-haspopup="true" aria-controls="dropdown-menu">
                         <span>{props.selectValue === "" ? props.buttonText : props.selectValue}</span>
                         <span className="icon is-small">
                             <i className="fas fa-angle-double-down" aria-hidden="true"></i>
@@ -39,7 +42,7 @@ const Dropdown: FC<DropdownProps> = (props) => {
                     <div className="dropdown-content">
                         {props.itemArray.map((item, idx) => {
                             return (
-                                <a key={idx} className={`dropdown-item ${props.identifier} item-${idx + 1}`} onClick={(e) => toggleDropdownItem(e, idx + 1,props.identifier)}>
+                                <a key={idx} className={`dropdown-item ${props.identifier} item-${idx + 1}`} onClick={(e) => toggleDropdownItem(e, idx + 1, props.identifier)}>
                                     {item}
                                 </a>
                             )

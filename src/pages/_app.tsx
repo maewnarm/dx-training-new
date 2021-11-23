@@ -6,7 +6,7 @@ import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <div className="app-main">
       <Head>
         <title>Welcome to Temp-app</title>
         <link href="/css/all.css" rel="stylesheet"/> 

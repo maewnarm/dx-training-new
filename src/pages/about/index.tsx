@@ -86,6 +86,11 @@ const About = () => {
             items.forEach((item, idx) => {
                 item.classList.toggle("is-active", false)
             })
+            let buttons = document.querySelectorAll(`.button.${identifier}`)
+            buttons.forEach(button => {
+                button.classList.toggle("is-danger",true)
+                button.classList.toggle("is-info",false)
+            })
         })
     }
 
@@ -98,7 +103,7 @@ const About = () => {
         linesArray.forEach(item => {
             if (item.plant === selectedPlant) {
                 filtered.push(item.line)
-            } 
+            }
         })
         setFilteredLine(filtered)
     }, [selectedPlant])
@@ -107,7 +112,7 @@ const About = () => {
         console.log("line is changed")
         setSelectedMachine("")
         clearSelected(["machine"])
-        let filtered: string[] =[]
+        let filtered: string[] = []
         machineArray.forEach(item => {
             if (item.line === selectedLine) {
                 filtered.push(item.machine)
@@ -118,17 +123,21 @@ const About = () => {
 
     return (
         <div className="about">
-            <h1>About :</h1>
-            <p>Plant : {selectedPlant}</p>
-            <p>Line : {selectedLine}</p>
-            <p>Machine : {selectedMachine}</p>
-            <Selected selectedValue={`Plant : ${selectedPlant}, Line : ${selectedLine}, Machine : ${selectedMachine}`} />
-            {/* plant dropdown */}
-            <Dropdown buttonText="choose plant" identifier="plant" itemArray={plantsArray} selectValue={selectedPlant} setSelectFunction={setSelectedPlant}/>
-            {/* line dropdown */}
-            <Dropdown buttonText="choose line" identifier="line" itemArray={filteredLine} selectValue={selectedLine} setSelectFunction={setSelectedLine}/>
-            {/* machine dropdown */}
-            <Dropdown buttonText="choose machine" identifier="machine" itemArray={filteredMachine} selectValue={selectedMachine} setSelectFunction={setSelectedMachine}/>
+            <div className="about__text">
+                <h1>About :</h1>
+                <p>Plant : {selectedPlant}</p>
+                <p>Line : {selectedLine}</p>
+                <p>Machine : {selectedMachine}</p>
+                <Selected selectedValue={`Plant : ${selectedPlant}, Line : ${selectedLine}, Machine : ${selectedMachine}`} />
+            </div>
+            <div className="about__dropdown">
+                {/* plant dropdown */}
+                <Dropdown buttonText="choose plant" identifier="plant" itemArray={plantsArray} selectValue={selectedPlant} setSelectFunction={setSelectedPlant} />
+                {/* line dropdown */}
+                <Dropdown buttonText="choose line" identifier="line" itemArray={filteredLine} selectValue={selectedLine} setSelectFunction={setSelectedLine} />
+                {/* machine dropdown */}
+                <Dropdown buttonText="choose machine" identifier="machine" itemArray={filteredMachine} selectValue={selectedMachine} setSelectFunction={setSelectedMachine} />
+            </div>
         </div>
     )
 }

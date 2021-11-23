@@ -1,4 +1,13 @@
+@use "dropdown";
+@import "variables";
 @import 'bulma/css/bulma.css';
+
+.app-main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .home-main {
     h1 {
@@ -7,6 +16,9 @@
 }
 
 .navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
     background-color: lightblue;
     height: 40px;
     display: flex;
