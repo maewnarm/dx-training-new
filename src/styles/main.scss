@@ -1,29 +1,76 @@
-@use "dropdown";
+@use "home"; //_home.scss
+@use "dropdown"; //_dropdown.scss
 @import "variables";
-@import 'bulma/css/bulma.css';
+@import "bulma/css/bulma.css";
+
+html {
+  min-height: 100%;
+  background-color: $theme-color-1;
+  color: $inverted-theme-color-1;
+}
+
+body {
+  height: 100%;
+}
 
 .app-main {
-    min-height: 100vh;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__component {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: fit-content;
+    margin: 3rem auto;
+  }
 }
 
 .home-main {
-    h1 {
-        color: red;
-    }
+  h1 {
+    color: red;
+  }
 }
 
 .navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: lightblue;
-    height: 40px;
-    display: flex;
-    a {
-        margin: auto 10px;
-        color: blue;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: lightblue;
+  height: 40px;
+  display: flex;
+  a {
+    margin: auto 10px;
+    color: blue;
+    font-weight: bold;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
     }
+    &:focus {
+      outline-color: red;
+      padding: 5px;
+    }
+  }
+}
+
+.about__text {
+  p {
+    font-weight: bold;
+  }
+  p:hover {
+    background-color: pink;
+    border: 1px dashed black;
+    border-radius: 5px;
+  }
+}
+
+.about__selected p {
+  font-weight: bold;
+  color: blue;
+}
+
+.custom-button {
+  padding: 15px;
+  background-color: $inverted-theme-color-1;
+  color: $theme-color-1;
+  font: 20px bold ;
 }

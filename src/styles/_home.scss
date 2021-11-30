@@ -1,0 +1,20 @@
+.main-section {
+  border: 1px solid black;
+  padding: 10px;
+  &__topic {
+    font-weight: bold;
+  }
+  &__subtopic {
+    font-style: italic;
+    &--modified {
+      color: blue;
+    }
+    &--bold {
+      font-weight: bold;
+    }
+    &--highlighted {
+      color: red;
+      font-weight: bold;
+    }
+  }
+}
