@@ -72,5 +72,23 @@ body {
   padding: 15px;
   background-color: $inverted-theme-color-1;
   color: $theme-color-1;
-  font: 20px bold ;
+  font: 20px bold;
+}
+
+.table {
+  thead tr {
+    background-color: lightpink;
+  }
+  tbody tr {
+    &:nth-child(2n + 0) {
+      background-color: lightblue;
+    }
+  }
+  &--hoverable tbody tr {
+    &:hover {
+      background-color: lightgray;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
